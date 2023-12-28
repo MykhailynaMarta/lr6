@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+
+<body>
+    <div class="main-container" style="position: relative;">
+        <div class="cart-img-container">
+            <img class="cart" src="https://img.icons8.com/?size=256&id=3538&format=png" alt="shopping-cart">
+            <span id="cartItemCount" class="cart__num">0</span>
+        </div>
+        <h1>Обов'язково додайте своє замовлення</h1>
+        <div class="swiper-container content-container" id="productsContainer">
+            <div class="swiper-wrapper"></div>
+            <!-- Додайте стрілки навігації, якщо потрібно -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('GET', 'products.json', true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var responseData = JSON.parse(xhr.responseText);
+                displayProducts(responseData.products);
+                initSwiper(); // Ініціалізуємо Swiper після вставлення всіх слайдів
+            }
+        };
+
+        xhr.send();
+
+        function displayProducts(products) {
+            var productsContainer = document.querySelector('.swiper-wrapper');
+
+            for (var i = 0; i < products.length; i++) {
+                var product = products[i];
+
+                // Створюємо новий елемент для кожного продукту
+                var productSlide = document.createElement('div');
+                productSlide.className = 'swiper-slide columns'; // Додаємо клас swiper-slide
+
+                var isNewCircle = product.isNew
+                    ? `<div class="circle green-circle">новинка</div>`
+                    : '';
+
+                var salesStatusCircle = product.circleColor === 'blue'
+                    ? `<div class="circle blue-circle">${product.salesStatus}</div>`
+                    : '';
+
+                productSlide.innerHTML = `
+                ${isNewCircle}
+                ${salesStatusCircle}
+                <div class="column__title-container"><h2>${product.category}</h2></div>
+                <div class="line"></div>
+                <div class="img-container"><img src="${product.image}" alt="${product.name}"></div>
+                <div class="name-of-product-container"><p class="name-of-product">${product.name}</p></div>
+                <div class="price-container">
+                    ${product.discount
+                        ? `<span class="original-price">$${product.originalPrice}</span>
+                           $<span class="discounted-price">${product.price}</span>`
+                        : `$<span class="price-text">${product.price || ''}</span>`}
+                </div>
+                <div class="column-btn__buy-container">
+                  <button ${product.status === 'Незабаром у продажі' ? 'disabled' : ''} onclick="addToCart(${product.id})" class="column-btn__buy btn_buy">
+                    <span>${product.status}</span>
+                  </button>
+                </div>
+            `;
+
+                // Додаємо новий продукт до контейнера
+                productsContainer.appendChild(productSlide);
+            }
+        }
+
+        function addToCart(productId) {
+            // Додайте код для додавання товару в корзину за допомогою productId
+            console.log('Adding product to cart:', productId);
+        }
+
+        function initSwiper() {
+            var swiper = new Swiper('.swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        }
+    </script>
+</body>
+
+</html>

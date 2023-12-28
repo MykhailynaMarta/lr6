@@ -1,0 +1,43 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "category": "Бізнес",
+      "isNew": true,
+      "name": "Магазин легкої промисловості",
+      "image": "img/column-first-shop.jpg",
+      "status": "Незабаром у продажі"
+    },
+    {
+      "id": 2,
+      "category": "Житло",
+      "isNew": true,
+      "name": "Житлова квартира",
+      "image": "img/column-second-flat.jpg",
+      "originalPrice": 55000,
+      "price": 51000,
+      "discount": 5000,
+      "status": "В корзину"
+    },
+    {
+      "id": 3,
+      "category": "Житло",
+      "isNew": false,
+      "name": "Будинок",
+      "image": "img/column-third-house.jpg",
+      "price": 45000,
+      "status": "В корзину"
+    },
+    {
+      "id": 4,
+      "category": "Бізнес",
+      "isNew": true,
+      "name": "Комерційне приміщення",
+      "image": "img/column-fourth-commercial.jpg",
+      "price": 70500,
+      "status": "В корзину",
+      "circleColor": "blue",
+      "salesStatus": "Хіт продажів"
+    }
+  ]
+}
