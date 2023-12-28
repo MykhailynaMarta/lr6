@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title>XML</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
@@ -18,7 +18,6 @@
         <h1>Обов'язково додайте своє замовлення</h1>
         <div class="swiper-container content-container" id="productsContainer">
             <div class="swiper-wrapper"></div>
-            <!-- Додайте стрілки навігації, якщо потрібно -->
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         </div>
@@ -33,7 +32,7 @@
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var responseData = JSON.parse(xhr.responseText);
                 displayProducts(responseData.products);
-                initSwiper(); // Ініціалізуємо Swiper після вставлення всіх слайдів
+                initSwiper(); 
             }
         };
 
@@ -45,9 +44,8 @@
             for (var i = 0; i < products.length; i++) {
                 var product = products[i];
 
-                // Створюємо новий елемент для кожного продукту
                 var productSlide = document.createElement('div');
-                productSlide.className = 'swiper-slide columns'; // Додаємо клас swiper-slide
+                productSlide.className = 'swiper-slide columns'; 
 
                 var isNewCircle = product.isNew
                     ? `<div class="circle green-circle">новинка</div>`
@@ -77,13 +75,12 @@
                 </div>
             `;
 
-                // Додаємо новий продукт до контейнера
+                
                 productsContainer.appendChild(productSlide);
             }
         }
 
         function addToCart(productId) {
-            // Додайте код для додавання товару в корзину за допомогою productId
             console.log('Adding product to cart:', productId);
         }
 
